@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:notes_app/cubit/add_note/note_cubit.dart';
+import 'package:notes_app/cubit/notes/notes_cubit.dart';
 import 'package:notes_app/views/widgets/add_note_form.dart';
 
 class AddNoteSheet extends StatelessWidget {
@@ -14,6 +15,7 @@ class AddNoteSheet extends StatelessWidget {
       child: BlocConsumer<AddNoteCubit, AddNoteState>(
         listener: (context, state) {
           if (state is AddNoteDone) {
+            BlocProvider.of<NotesCubit>(context).fetchAllNotes();
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text(
