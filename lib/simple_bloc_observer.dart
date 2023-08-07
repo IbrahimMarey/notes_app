@@ -5,17 +5,21 @@ class SimpleBlocObserver implements BlocObserver{
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change)
   {
-    debugPrint(change.toString());
+    debugPrint('change = $change');
     // TODO: implement onChange
   }
 
   @override
   void onClose(BlocBase<dynamic> bloc) {
+    debugPrint('close = $bloc');
+
     // TODO: implement onClose
   }
 
   @override
   void onCreate(BlocBase<dynamic> bloc) {
+    debugPrint('create = $bloc');
+
     // TODO: implement onCreate
   }
 

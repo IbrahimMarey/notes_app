@@ -11,33 +11,36 @@ class AddNoteSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: BlocConsumer<AddNoteCubit, AddNoteState>(
-        listener: (context, state) {
-          if (state is AddNoteDone) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'success',
+    return BlocProvider(
+      create: (context) => AddNoteCubit(),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: BlocConsumer<AddNoteCubit, AddNoteState>(
+          listener: (context, state) {
+            if (state is AddNoteDone) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'success',
+                  ),
                 ),
-              ),
-            );
-            Navigator.pop(context);
-          }
-          if (state is AddNoteError) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text(
-                  'failure',
+              );
+              Navigator.pop(context);
+            }
+            if (state is AddNoteError) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text(
+                    'failure',
+                  ),
                 ),
-              ),
-            );
-          }
-        },
-        builder: (context, state) => ModalProgressHUD(
-          inAsyncCall: state is AddNoteLoading,
-          child: const SingleChildScrollView(child: AddNoteForm()),
+              );
+            }
+          },
+          builder: (context, state) => ModalProgressHUD(
+            inAsyncCall: state is AddNoteLoading,
+            child: const SingleChildScrollView(child: AddNoteForm()),
+          ),
         ),
       ),
     );
