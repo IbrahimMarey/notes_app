@@ -30,7 +30,6 @@ class _AddNoteFormState extends State<AddNoteForm> {
             hint: 'Title',
             onSaved: (v) {
               title = v;
-              print(title);
             },
           ),
           const SizedBox(
@@ -41,30 +40,32 @@ class _AddNoteFormState extends State<AddNoteForm> {
             maxLines: 5,
             onSaved: (v) {
               subTitle = v;
-              print(subTitle);
             },
           ),
           const SizedBox(
             height: 32,
           ),
-          CustomButton(
-            onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                final noteModel = NoteModel(
-                    title: title!,
-                    subTitle: subTitle!,
-                    date: DateTime.now().toString(),
-                    color: Colors.teal.value,
-                );
-                BlocProvider.of<AddNoteCubit>(context)
-                    .addNote(noteModel: noteModel);
-                formKey.currentState!.save();
-              } else {
-                autoValidateMode = AutovalidateMode.always;
-                setState(() {});
-              }
-            },
+          BlocBuilder<AddNoteCubit,AddNoteState>(
+            builder: (context, state) => CustomButton(
+              isLoading: state is AddNoteLoading,
+              onTap: () {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+                  final noteModel = NoteModel(
+                      title: title!,
+                      subTitle: subTitle!,
+                      date: DateTime.now().toString(),
+                      color: Colors.teal.value,
+                  );
+                  BlocProvider.of<AddNoteCubit>(context)
+                      .addNote(noteModel: noteModel);
+                  formKey.currentState!.save();
+                } else {
+                  autoValidateMode = AutovalidateMode.always;
+                  setState(() {});
+                }
+              },
+            ),
           ),
         ],
       ),
