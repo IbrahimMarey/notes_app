@@ -8,9 +8,6 @@ class NotesLoading extends NotesState {}
 
 class NotesError extends NotesState {}
 
-class NotesDone extends NotesState {
-  final List<NoteModel> notes;
-  NotesDone(this.notes);
-}
+class NotesDone extends NotesState {}
 
 class NotesUpdate extends NotesState {}

@@ -15,24 +15,25 @@ class NotesCubit extends Cubit<NotesState> {
   void init() {
   }
 
+  List<NoteModel>notes=[];
   fetchAllNotes()
   {
-    try{
+   // try{
       var noteBox= Hive.box<NoteModel>(kNoteBox);
-      List<NoteModel> notes= noteBox.values.toList();
-      emit(NotesDone(notes));
-    }catch(e){
-
-      Fluttertoast.showToast(
-          msg: e.toString(),
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.red,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-      emit(NotesError());
-    }
+       notes= noteBox.values.toList();
+      emit(NotesDone());
+    // }catch(e){
+    //
+    //   Fluttertoast.showToast(
+    //       msg: e.toString(),
+    //       toastLength: Toast.LENGTH_SHORT,
+    //       gravity: ToastGravity.CENTER,
+    //       timeInSecForIosWeb: 1,
+    //       backgroundColor: Colors.red,
+    //       textColor: Colors.white,
+    //       fontSize: 16.0
+    //   );
+    //   emit(NotesError());
+    // }
   }
 }
