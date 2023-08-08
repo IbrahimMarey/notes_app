@@ -15,8 +15,10 @@ class AddNoteCubit extends Cubit<AddNoteState> {
   void init() {
   }
 
+  Color color= const Color(0xFF4A4063);
   addNote({required NoteModel noteModel})async
   {
+    noteModel.color = color.value;
     emit(AddNoteLoading());
     try{
       var noteBox= Hive.box<NoteModel>(kNoteBox);
